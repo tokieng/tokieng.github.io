@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="ja" class="h-100" style="touch-action:none; font-size: calc(100vmin/16);">
+<!--
+//  Copyright 2020 tokieng
+-->
+<head>
+<meta charset="utf-8">
+<meta name="description" content="市販の電卓によく似た操作ができる、「ときたく」です。">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="タイトル">
+<title>ときたく(電卓)</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style>
+.disparea {
+	height: calc(100vh/7);
+	font-size: 80%;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+.digitarea {
+	position: relative;
+	font-size: 2rem;
+}
+.buttonarea {
+	position: relative;
+	top: 10px;
+	height: calc(100vh/7*6);
+}
+.btn {
+	font-size: 1rem;
+	height: calc(100vh/7);
+	focus-visible: none;
+}
+.dispside {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  max-width: 1rem;
+  font-size: 0.8rem;
+}
+@keyframes blink {
+  50% { opacity: 0.0; }
+}
+.blink {
+  animation: blink 1s step-end infinite;
+}
+</style>
+
+</head>
+<body class="h-100">
+
+<div class="container-fluid disparea w-100" style="margin:0; padding:0;">
+  <div class="row h-100">
+    <div class="col dispside h-100">
+      <div class="container h-100">
+        <div id="disp_M" class="invisible" style="position:absolute; top:0;">M</div>
+        <div id="disp_K" class="invisible" style="position:absolute; bottom:0;">K</div>
+      </div>
+    </div>
+    <div class="col h-100">
+      <div class="h-100 text-right digitarea"><span id="disp_digits" class="align-middle" style="position:absolute; top: calc(calc(100% / 2) - 1rem); right:10px;">0.</span></div>
+    </div>
+    <div class="col container dispside">
+      <div class="row"><span class="invisible" id="disp_E" style="position:absolute; top:0;">E</span></div>
+      <div class="row"><span id="disp_ope" style="position:absolute; top: calc(calc(100% / 2) - 0.5rem);">　</span></div>
+      <div class="row"><span class="invisible" id="disp_EQ" style="position:absolute; bottom:0">＝</span></div>
+    </div>
+  </div>
+</div>
+
+<style>
+.multi {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.btnarea {
+  padding: 0;
+}
+.backbutton {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+}
+.frontbutton {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+}
+.modebutton {
+  font-size: 0.6rem;
+}
+.currentMode {
+  background: #2222FF;
+  font-weight: bold;
+}
+</style>
+
+<div id="buttonMask" style="position: absolute; top:0; bottom:0; left:0; right:0; z-index:10; background:#FFF9;"></div>
+
+<div class="container-fluid buttonarea">
+  <div class="row">
+    <div class="col btnarea">
+      <button class="btn btn-info    border multi backbutton" id="pos0-0" data-func="ROOT">√</button>
+      <button class="btn btn-info    border multi frontbutton" id="pos0-1" data-func="PM">±</button>
+      <span style="position:absolute; bottom:2px;right:2px;z-index:2;font-size:0.3rem">▲</span>
+    </div>
+    <div class="col btnarea">
+    <button class="btn btn-info   border multi" id="pos0-2" data-func="%">%</button>
+    </div>
+    <div class="col btnarea">
+    <button class="col btn btn-primary border multi" id="pos0-3" data-func="DEL">→</button>
+    </div>
+    <div class="col btnarea">
+    <button class="col btn btn-danger  border multi frontbutton" id="pos0-4" data-func="AC">AC</button>
+    <span style="position:absolute; bottom:2px;right:2px;z-index:2;font-size:0.3rem">▼</span>
+    <button class="col btn btn-primary border multi backbutton modebutton" id="pos0-4-0" data-type="MODESELECT" data-func="TOKI"  data-pos="1">ときたく</button>
+    <button class="col btn btn-primary border multi backbutton modebutton" id="pos0-4-1" data-type="MODESELECT" data-func="CASIO" data-pos="2">CASIO風</button>
+    <button class="col btn btn-primary border multi backbutton modebutton" id="pos0-4-2" data-type="MODESELECT" data-func="SHARP" data-pos="3">SHARP風</button>
+    <button class="col btn btn-primary border multi backbutton modebutton" id="pos0-4-3" data-type="MODESELECT" data-func="Canon" data-pos="4">Canon風</button>
+    <button class="col btn btn-primary border multi backbutton modebutton" id="pos0-4-3" data-type="MODESELECT" data-func="CITIZEN" data-pos="5">CITIZEN風</button>
+    </div>
+  </div>
+  <div class="row">
+    <button class="col btn btn-success border" id="pos1-1" data-func="MR">MR</button>
+    <button class="col btn btn-success border" id="pos1-2" data-func="M-">M-</button>
+    <button class="col btn btn-success border" id="pos1-3" data-func="M+">M+</button>
+    <button class="col btn btn-warning border" id="pos1-4" data-func="MC">MC</button>
+  </div>
+  <div class="row">
+    <button class="col btn btn-light border" id="pos2-1" data-func="7">7</button>
+    <button class="col btn btn-light border" id="pos2-2" data-func="8">8</button>
+    <button class="col btn btn-light border" id="pos2-3" data-func="9">9</button>
+    <button class="col btn btn-info  border" id="pos2-4" data-func="/">÷</button>
+  </div>
+  <div class="row">
+    <button class="col btn btn-light border" id="pos3-1" data-func="4">4</button>
+    <button class="col btn btn-light border" id="pos3-2" data-func="5">5</button>
+    <button class="col btn btn-light border" id="pos3-3" data-func="6">6</button>
+    <button class="col btn btn-info  border" id="pos3-4" data-func="*">×</button>
+  </div>
+  <div class="row">
+    <button class="col btn btn-light border" id="pos4-1" data-func="1">1</button>
+    <button class="col btn btn-light border" id="pos4-2" data-func="2">2</button>
+    <button class="col btn btn-light border" id="pos4-3" data-func="3">3</button>
+    <button class="col btn btn-info  border" id="pos4-4" data-func="-">－</button>
+  </div>
+  <div class="row">
+    <button class="col btn btn-light border" id="pos5-1" data-func="0">0</button>
+    <button class="col btn btn-light border" id="pos5-2" data-func=".">.</button>
+    <button class="col btn btn-info  border" id="pos5-3" data-func="=">＝</button>
+    <button class="col btn btn-info  border" id="pos5-4" data-func="+">＋</button>
+  </div>
+</div>
+
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/bignumber.min.js"></script>
+<script src="digits.js"></script>
+<script>
+	Disp = function() {
+		var disp_digits = $("#disp_digits");
+		var disp_ope = $("#disp_ope");
+		var disp_E = $("#disp_E");
+		var disp_K = $("#disp_K");
+		var disp_M = $("#disp_M");
+		var disp_EQ = $("#disp_EQ");
+
+		var digits = new Digits;
+
+		return {
+			init: function() {
+				this.setValue(0);
+				this.EQ(false);
+				this.K(false);
+				this.E(false);
+				this.ope(null);
+				this.M(false);
+			},
+			setDigits: function(d) {
+				digits.setDigits(d);
+				this.dispValue();
+			},
+			setValue: function(v) {
+				digits.setValue(v);
+				this.dispValue();
+			},
+			getDigits: function() {
+				return digits;
+			},
+			getValue: function() {
+				return digits.getValue();
+			},
+			dispValue : function() {
+				var val = "";
+				var maxlength = (digits.digits[0]=="-") ? 13 : 12;
+				for (var i=0; i < digits.digits.length && i<maxlength; i++) {
+					val += digits.digits[i];
+					if (i+1== digits.commaPos) {
+						val += ".";
+					}
+				}
+				if (digits.commaPos == 0) {
+					val += ".";
+				}
+				disp_digits.text(val);
+			},
+			_visible: function(element, mode) {
+				if (mode) {
+					element.removeClass("invisible");
+				} else {
+					element.addClass("invisible");
+				}
+			},
+			K : function(mode) {
+				this._visible(disp_K, mode);
+			},
+			ope: function(ope) {
+				var list = { "+":"＋", "-":"－", "*":"×", "/":"÷", "=":"＝" };
+				if (ope !== null) {
+					disp_ope.text(list[ope]);
+					disp_ope.addClass("badge badge-secondary");
+				} else {
+					disp_ope.text("　");
+					disp_ope.removeClass("badge badge-secondary");
+				}
+			},
+			EQ: function(mode) {
+				this._visible(disp_EQ, mode);
+			},
+			E: function(mode) {
+				this._visible(disp_E, mode);
+			},
+			M: function(mode) {
+				if (mode == "blink") {
+					this._visible(disp_M, true);
+					disp_M.addClass("blink");
+				} else {
+					this._visible(disp_M, mode);
+					disp_M.removeClass("blink");
+				}
+			},
+
+			dispMemoryValue : function() {
+				var timerID = null;
+
+				return function(digits) {
+					var value = digits.getValue();
+					if (timerID !== null) {
+						clearTimeout(timerID);
+					}
+					var element = $("button[data-func='MR']");
+					element.popover("dispose");
+					element.popover({
+						content: value,
+						placement: "top",
+						trigger: "manual",
+					});
+					element.popover("show");
+					timerID = setTimeout(function() {
+						element.popover("dispose");
+						timeoutHandle = null;
+					},1000);
+				};
+			}(),
+
+		};
+	}();
+
+	hasKey = function(obj,keylist) {
+		for (one of keylist) {
+			if ((one in obj)) {
+				obj = obj[one];
+			} else {
+				return false;
+			}
+		}
+		return true;
+	};
+
+	CalcBase = function(statuslist) {
+		var list = statuslist;
+		var status = "first";
+		var currentPMROOTKey = "PM";
+
+		var init = function() {
+			status = "first";
+			list["func"].init();
+		};
+		init();
+
+		var changeStatus = function(next, keytype) {
+			var old = status;
+			if (next && (next !== null)) {
+				status = next;
+				console.log("change status '"+old+"' -> '"+status+"'");
+			} else if (hasKey(list, [status,keytype,"next"]) && list[status][keytype]["next"] !== null) {
+				status = list[status][keytype]["next"];
+				console.log("change status '"+old+"' -> '"+status+"'");
+			}
+		};
+
+		var process = function(type, key) {
+			console.log("base process status="+status+" type="+type+" key="+key);
+			var next = null;
+			if (hasKey(list, [status,type,"func"]) && list[status][type]["func"] !== null) {
+				next = list[status][type]["func"](key);
+			}
+			changeStatus(next, type);
+		};
+
+		var dispModeButons = function() {
+			var currentMode = list.func.getName();
+			$("#buttonMask").removeClass("invisible");
+
+			$("[data-type='MODESELECT']").removeClass("currentMode").each(function() {
+				var pos = $(this).data("pos") * 100;
+				$(this).css("z-index","20").animate({
+				top: "+="+pos+"%"
+			}, 250);
+			$("[data-func='"+currentMode+"']").addClass("currentMode");
+
+			});
+		};
+		var resetModeSelect = function() {
+			$("#buttonMask").addClass("invisible");
+			$("[data-type='MODESELECT']").css("z-index","0").css("top",0);
+		};
+		var modeSelect = function(key) {
+			switch (key) {
+				case "TOKI":
+					Calc = CalcToki;
+					break;
+				case "CASIO":
+					Calc = CalcCasio;
+					break;
+				case "SHARP":
+					Calc = CalcSharp;
+					break;
+				case "Canon":
+					Calc = CalcCanon;
+					break;
+				case "CITIZEN":
+					Calc = CalcCitizen;
+					break;
+			}
+			resetModeSelect();
+			init();
+			Disp.init();
+			localStorage.setItem("type", key);
+		};
+
+		var changePMButton = function(key) {
+			var target = (key=="ROOT") ? "PM" : "ROOT";
+
+			$("#buttonMask").removeClass("invisible");
+
+			$("[data-func='ROOT']").css("z-index","10").data("func","ROOT-CHOICE");
+			$("[data-func='PM']").css("z-index","10").data("func","PM-CHOICE");
+
+			var btn = $("[data-func='"+target+"']");
+
+			btn.animate({
+				top: "-=100%"
+			}, 100);
+		};
+
+		var resetChangePMButton = function() {
+			$("[data-func='ROOT']").data("func","ROOT").css("top",0).css("z-index",0);
+			$("[data-func='PM']").data("func","PM").css("top",0).css("z-index",0);
+
+			$("#buttonMask").addClass("invisible");
+		};
+
+		var enterPMChoice = function(key) {
+			var target, zindex = {};
+			if (key=="ROOT-CHOICE") {
+				target = "ROOT";
+				zindex["ROOT"] = 2;
+				zindex["PM"] = 0;
+			} else {
+				target =  "PM";
+				zindex["ROOT"] = 0;
+				zindex["PM"] = 2;
+			};
+			resetChangePMButton();
+			$("[data-func='ROOT']").css("z-index",zindex["ROOT"]);
+			$("[data-func='PM']").css("z-index",zindex["PM"]);
+
+			currentPMROOTKey = target;
+			console.log("enterPMChoice end");
+		};
+		var dispMemoryValue = function(d) {
+			Disp.dispMemoryValue(d);
+		};
+
+		return {
+			onKey: function(key) {
+				if (key == "_CANCEL") {
+					resetChangePMButton();
+					resetModeSelect();
+					return;
+				}
+				if (list["func"].isError()) {
+					if ( (key != "AC") && (key !="DEL") ) {
+						return;
+					}
+				}
+
+				var type = null;
+				switch (key) {
+					case 0:
+					case 1:
+					case 2:
+					case 3:
+					case 4:
+					case 5:
+					case 6:
+					case 7:
+					case 8:
+					case 9:
+						type = "numeric";
+						break;
+					case ".":
+						type = "comma";
+						break;
+					case "+":
+					case "-":
+					case "*":
+					case "/":
+						type = "ope";
+						break;
+					case "M+":
+					case "M-":
+						type = "memoryset";
+						break;
+					case "DEL":
+					case "PM":
+					case "%":
+					case "=":
+					case "AC":
+					case "MR":
+					case "MC":
+					case "ROOT":
+						type = key;
+						break;
+					case "PM-CHOICE":
+					case "ROOT-CHOICE":
+						enterPMChoice(key);
+						break;
+
+					case "TOKI":
+					case "CASIO":
+					case "SHARP":
+					case "Canon":
+					case "CITIZEN":
+						modeSelect(key);
+						break;
+				}
+				process(type,key);
+				list["func"].setLastKey(type, key);
+			},
+			onLongKey: function(key) {
+				switch (key) {
+					case "MR":
+						dispMemoryValue(list["func"].getMemoryDigits());
+						break;
+					case "PM":
+					case "ROOT":
+						changePMButton(key);
+						break;
+					case "AC":
+						dispModeButons();
+				}
+			},
+		};
+	};
+
+
+	Common = {
+		calc : function( left, ope, right) {
+			var result = new Digits;
+			var leftNum;
+			var rightNum;
+
+			if (typeof left == "number") {
+				leftNum = new BigNumber(left);
+			} else {
+				leftNum = new BigNumber(left.getValue());
+			}
+			if (typeof right == "number") {
+				rightNum = new BigNumber(right);
+			} else {
+				rightNum = new BigNumber(right.getValue());
+			}
+
+			var resultNum;
+			var error = false;
+			switch (ope) {
+				case "+":
+					resultNum = leftNum.plus(rightNum);
+					break;
+				case "-":
+					resultNum = leftNum.minus(rightNum);
+					break;
+				case "*":
+					resultNum = leftNum.multipliedBy(rightNum);
+					break;
+				case "/":
+					if (rightNum.isZero()) {
+						error = true;
+						resultNum = new BigNumber(0);
+					} else {
+						resultNum = leftNum.dividedBy(rightNum);
+					}
+					break;
+			}
+
+			if (resultNum.isGreaterThan(1e12) || resultNum.isLessThan(-1e12)) {
+				error = true;
+				resultNum = resultNum.dividedBy(1e12);
+			}
+			var resultStr = resultNum.toFixed(12);
+			resultStr = resultStr.replace(/(\.\d*[^0])0+$/,"$1").replace(/\.0+$/,"").replace(/\.$/,"");
+			result.setValue(resultStr);
+
+
+			return [result, error];
+		},
+	};
+
+</script>
+<script src="toki.js"></script>
+<script src="casio.js"></script>
+<script src="type2.js"></script>
+<script>
+	var storedType = localStorage.getItem("type");
+	console.log("type="+storedType);
+	switch (storedType) {
+		case "CASIO":
+			Calc = CalcCasio;
+			break;
+		case "SHARP":
+			Calc = CalcSharp;
+			break;
+		case "Canon":
+			Calc = CalcCanon;
+			break;
+		case "CITIZEN":
+			Calc = CalcCitizen;
+			break;
+		default:
+			Calc = CalcToki;
+	}
+
+
+	$("#buttonMask").on("click", function() {
+		Calc.onKey("_CANCEL");
+	});
+	$("button").on("mousedown touchstart", function(event) {
+		event.preventDefault();
+		var btn = $(this);
+		var name = btn.attr("id");
+		var flg = false;
+		var key = btn.data("func");
+
+		if (btn.hasClass("disabled")) {
+			return;
+		}
+
+		btn.addClass("active");
+		var timerID = setTimeout(function() {
+			if (flg===false) {
+				Calc.onLongKey(key);
+			}
+			flg = true;
+		}, 500);
+
+		var onupfunc = function(event) {
+			event.preventDefault();
+			btn.removeClass("active");
+			clearTimeout(timerID);
+			if (flg===false) {
+				Calc.onKey(key);
+			}
+			flg = true;
+			btn.off("mouseup mousemove touchend", onupfunc);
+		}
+		$(this).on("mouseup mousemove touchend", onupfunc);
+	})
+	$("#buttonMask").addClass("invisible");
+	;
+</script>
+<script>
+window.addEventListener('load', function() {
+	navigator.serviceWorker.register('./sw.js').then(function(registration) {
+		// Registration was successful
+		console.log('ServiceWorker registration successful with scope: ', registration.scope);
+	}, function(err) {
+		// registration failed :(
+		console.log('ServiceWorker registration failed: ', err);
+	});
+});
+
+</script>
+</body>
+</html>
