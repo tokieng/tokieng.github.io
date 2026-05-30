@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web広告 見本サイト</title>
+<title>Web広告見本サイト</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -300,10 +300,11 @@
 
   /* ========== 5. スクロール無効＋タッチ離し遷移広告 ========== */
   .redirect-trap-ad {
-    margin: 24px 0;
+    margin: 24px -28px; /* 記事のパディングを打ち消して横幅いっぱいに */
     background: linear-gradient(135deg, #1a2a4a, #c8391a);
     color: #fff;
     padding: 24px 20px;
+    min-height: 40vh;
     text-align: center;
     touch-action: none;
     user-select: none;
@@ -1277,7 +1278,7 @@
     <span class="ad-badge">広告</span>
     <span class="sticky-emoji">🛒</span>
     <span><strong>あなたにオススメ</strong> — スペシャルプライスで今すぐ購入！</span>
-    <a href="#" class="ad-btn" style="white-space:nowrap">詳しく見る</a>
+    <a href="javascript:void(0)" class="ad-btn" style="white-space:nowrap">詳しく見る</a>
   </div>
   <button class="close-btn" onclick="document.getElementById('sticky-ad').classList.remove('visible')">✕</button>
 </div>
@@ -1296,7 +1297,7 @@
     <article>
       <div class="article-eyebrow">特集記事 / FEATURE</div>
       <h1>インターネット広告の歴史と進化<br>—— ユーザーを翻弄する広告の全形態</h1>
-      <div class="article-meta">2026年5月30日　記者：とっきー with 生成AI</div>
+      <div class="article-meta">2026年5月31日　記者：生成AI with とっきー</div>
 
       <p>インターネットが普及して以来、ウェブ広告は様々な形態へと進化してきた。ページの隅にひっそり表示されるバナーから、操作を一切受け付けない強制表示型まで、広告主とユーザーの間では常に攻防が繰り広げられている。</p>
 
@@ -1346,7 +1347,7 @@
         <div style="width:100%;height:120px;background:linear-gradient(135deg,#ffd966,#ff9f43);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:44px;margin:8px 0;">🚗</div>
         <div class="ad-title">新車購入で最大50万円キャッシュバック</div>
         <div class="ad-desc">来店予約はこちら。今月末まで。</div>
-        <a class="ad-btn" href="#" style="margin-top:8px;">予約する</a>
+        <a class="ad-btn" href="javascript:void(0)" style="margin-top:8px;">予約する</a>
       </div>
 
       <p>広告の「しつこさ」はエスカレートする一方だ。一度閉じても数秒後に再び現れるフローティング広告、ブラウザの通知許可ダイアログを装った偽通知、カウントダウンで「あと10分」と煽りながら永遠に終わらないタイマー——こうした手法は「ダークパターン」と総称され、近年は規制の対象にもなりつつある。</p>
@@ -1369,7 +1370,7 @@
           憧れの楽園が、今なら最大<strong style="color:#fff;">60%OFF</strong>。<br>
           人気プランは早い者勝ち、残りわずか！
         </div>
-        <a class="ad-btn" href="#">今すぐ予約する →</a>
+        <a class="ad-btn" href="javascript:void(0)">今すぐ予約する →</a>
       </div>
 
       <p>このように、広告自体は魅力的なオファーを装いながら、裏ではユーザーの操作を妨害している。読者は記事を読み進めるために、嫌でも広告を視界に入れ続けることになる。</p>
@@ -1400,15 +1401,15 @@
 
       <p>とりわけ悪質なのが、閉じるボタンを背景に溶け込ませる手法だ。広告を閉じたいユーザーは、目立つ「申し込む」ボタンを避けて、隅にある灰色の極小テキストを探さなければならない。この「閉じにくさ」こそが、誤クリックによる広告効果を生むのである。</p>
 
-      <p>さらに悪質なのが、次に示すタイプだ。これも見た目は普通のバナー広告だが、二重の罠が仕掛けられている。第一に、前の例と同じくスクロールが無効化されている。第二に、ユーザーがマウスのボタンを離した瞬間（<code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:12px;">mouseup</code>）、あるいはスマホで指を離した瞬間（<code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:12px;">touchend</code>）に、別サイトへ強制的に遷移させる仕組みになっている。つまり、スクロールしようとして広告に触れ、指を離しただけで——クリックした覚えがないのに——まったく別のページへ飛ばされてしまうのだ。下の広告は、うっかり触ると <code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:12px;">example.com</code> へ遷移する（新しいタブで開きます）。</p>
+      <p>さらに悪質なのが、次に示すタイプだ。これも見た目は普通のバナー広告だが、二重の罠が仕掛けられている。第一に、前の例と同じくスクロールが無効化されている。第二に、ユーザーがマウスのボタンを離した瞬間（<code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:12px;">mouseup</code>）、あるいはスマホで指を離した瞬間（<code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:12px;">touchend</code>）に、別サイトへ強制的に遷移させる仕組みになっている。つまり、スクロールしようとして広告に触れ、指を離しただけで——クリックした覚えがないのに——まったく別のページへ飛ばされてしまうのだ。下の広告は、うっかり触ると<strong>怪しいネットカジノ風のページ</strong>へ遷移する（新しいタブで開きます）。「あ、やばいページを開いてしまった…」というあの感覚を、ぜひ味わってみてほしい。</p>
 
       <!-- ⑤ スクロール無効＋タッチ離し遷移広告（ヒントなし・いかにも広告風） -->
       <div class="redirect-trap-ad"
            ontouchstart="return false;"
            ontouchmove="return false;"
            onwheel="event.preventDefault();"
-           onmouseup="window.open('https://example.com','_blank')"
-           ontouchend="window.open('https://example.com','_blank')">
+           onmouseup="window.open('casino-trap.html','_blank')"
+           ontouchend="window.open('casino-trap.html','_blank')">
         <span class="ad-badge" style="background:#fff;color:#1a1410;">広告</span>
         <div class="trap-icon">🎁</div>
         <div class="trap-title">＼ 抽選で1000名様に当たる ／<br>最新スマホプレゼントキャンペーン</div>
@@ -1503,7 +1504,7 @@
         <div class="rect-visual">🎮</div>
         <div class="ad-headline">新作ゲーム登場！</div>
         <div class="ad-sub">シーズンパス含む特典付き<br>限定パッケージ販売中</div>
-        <a class="ad-btn" href="#">今すぐ予約</a>
+        <a class="ad-btn" href="javascript:void(0)">今すぐ予約</a>
       </div>
 
       <!-- もう一つのレクタングル -->
@@ -1512,7 +1513,7 @@
         <div style="font-size:32px;margin-bottom:8px;">✈️</div>
         <div class="ad-headline">格安航空券を探す</div>
         <div class="ad-sub">東京発 各地へ<br>最安値を比較検索</div>
-        <a class="ad-btn" href="#" style="background:#2563a8;">検索する</a>
+        <a class="ad-btn" href="javascript:void(0)" style="background:#2563a8;">検索する</a>
       </div>
 
     </div>
@@ -1527,7 +1528,7 @@
   <div class="float-emoji">🎁</div>
   <div class="float-title">会員登録で<br>500円OFF！</div>
   <div class="float-sub">今月末まで限定</div>
-  <a class="ad-btn" style="font-size:11px;padding:5px 12px" href="#">登録する</a>
+  <a class="ad-btn" style="font-size:11px;padding:5px 12px" href="javascript:void(0)">登録する</a>
 </div>
 
 <!-- ④ アンカー広告（画面下部） ← 番号を整合させるため説明は⑤ -->
@@ -1549,7 +1550,7 @@
     <div class="inter-visual">🎬</div>
     <h2>スペシャルオファーのご案内</h2>
     <p>ページ遷移のタイミングで全画面表示される広告です。<br>スキップまで少々お待ちください。</p>
-    <a class="ad-btn" href="#" style="display:inline-block;margin-bottom:16px;">オファーを確認する →</a>
+    <a class="ad-btn" href="javascript:void(0)" style="display:inline-block;margin-bottom:16px;">オファーを確認する →</a>
     <div id="inter-skip">
       <span id="inter-counter">5秒後にスキップ可能...</span>
       <button class="skip-btn" id="inter-skip-btn" disabled onclick="closeInterstitial()">スキップ ✕</button>
@@ -1648,7 +1649,7 @@
 <div id="fake-notif">
   <div class="fn-head">
     <div class="fn-icon">📢</div>
-    <span class="fn-site">example-news.com</span>
+    <span class="fn-site">example.com</span>
     <button class="fn-x" onclick="hideFakeNotif()">✕</button>
   </div>
   <div class="fn-body">
@@ -1670,7 +1671,7 @@
     <div class="ad-type-label" style="font-size:8px;">⑯ サイドレール（左）</div>
     <div class="sr-visual">🍔</div>
     <div class="sr-text">デリバリー<br>初回無料！</div>
-    <a class="ad-btn" href="#" style="font-size:10px;padding:5px 10px;">注文する</a>
+    <a class="ad-btn" href="javascript:void(0)" style="font-size:10px;padding:5px 10px;">注文する</a>
   </div>
 </div>
 <div class="side-rail side-rail-right">
@@ -1678,7 +1679,7 @@
     <div class="ad-type-label" style="font-size:8px;">⑯ サイドレール（右）</div>
     <div class="sr-visual" style="background:linear-gradient(160deg,#667eea,#764ba2);">💎</div>
     <div class="sr-text">高級時計<br>査定アップ中</div>
-    <a class="ad-btn" href="#" style="font-size:10px;padding:5px 10px;background:#667eea;">見積もる</a>
+    <a class="ad-btn" href="javascript:void(0)" style="font-size:10px;padding:5px 10px;background:#667eea;">見積もる</a>
   </div>
 </div>
 
