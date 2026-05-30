@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web広告 完全見本サイト</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --paper: #fffdf7;
+    --ink: #1a1410;
+    --ink-light: #6b5f52;
+    --accent: #c8391a;
+    --accent2: #2563a8;
+    --rule: #d4c9b8;
+    --ad-bg: #fff8e7;
+    --ad-border: #f0c040;
+    --ad-label: #b35c00;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--ink);
+    line-height: 1.8;
+    font-size: 15px;
+  }
+
+  /* ========== AD LABEL BADGE ========== */
+  .ad-badge {
+    display: inline-block;
+    background: var(--ad-label);
+    color: #fff;
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: .12em;
+    padding: 2px 6px;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+
+  .ad-type-label {
+    font-size: 10px;
+    color: var(--ad-label);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ========== 1. バナー広告（ページ最上部） ========== */
+  #banner-ad {
+    width: 100%;
+    background: linear-gradient(90deg, #1a2a4a 0%, #2563a8 50%, #1a2a4a 100%);
+    color: #fff;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 13px;
+    letter-spacing: .05em;
+    position: relative;
+    overflow: hidden;
+  }
+  #banner-ad::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,.03) 40px, rgba(255,255,255,.03) 41px);
+  }
+  #banner-ad .badge { background: #f0c040; color: #1a1410; }
+  #banner-ad strong { color: #f0c040; }
+
+  /* ========== ヘッダー ========== */
+  header {
+    background: var(--paper);
+    border-bottom: 2px solid var(--ink);
+    padding: 20px 0 16px;
+    text-align: center;
+  }
+  header .site-name {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    color: var(--ink);
+  }
+  header .tagline {
+    font-size: 11px;
+    color: var(--ink-light);
+    letter-spacing: .2em;
+    margin-top: 4px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ========== レイアウト ========== */
+  .page-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 16px 120px;
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* ========== 記事エリア ========== */
+  article {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 28px 28px 40px;
+  }
+
+  .article-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  article h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 14px;
+  }
+
+  .article-meta {
+    font-size: 11px;
+    color: var(--ink-light);
+    margin-bottom: 20px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  article p {
+    margin-bottom: 16px;
+    font-size: 14.5px;
+  }
+
+  article h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 17px;
+    margin: 28px 0 12px;
+    padding-left: 10px;
+    border-left: 3px solid var(--accent);
+  }
+
+  /* ========== 2. レクタングル広告（サイドバー） ========== */
+  .sidebar { position: relative; }
+
+  .sidebar-sticky {
+    position: sticky;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ad-rect {
+    background: var(--ad-bg);
+    border: 1.5px solid var(--ad-border);
+    padding: 16px;
+    text-align: center;
+    width: 100%;
+  }
+  .ad-rect img-placeholder {
+    display: block;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #ffe066 0%, #ffb347 100%);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .ad-rect .ad-headline {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .ad-rect .ad-sub {
+    font-size: 11px;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+  .ad-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 18px;
+    border-radius: 2px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: .05em;
+  }
+  .ad-btn:hover { background: #a02d15; }
+
+  .rect-visual {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #ffd966 0%, #ff9f43 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin-bottom: 12px;
+    border-radius: 2px;
+  }
+
+  /* ========== 3. 記事内広告 ========== */
+  .in-article-ad {
+    background: var(--ad-bg);
+    border: 1.5px dashed var(--ad-border);
+    padding: 14px 16px;
+    margin: 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .in-article-ad .ad-visual {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    border-radius: 4px;
+  }
+  .in-article-ad .ad-body { flex: 1; }
+  .in-article-ad .ad-title { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+  .in-article-ad .ad-desc { font-size: 11px; color: var(--ink-light); }
+
+  /* ========== 4. スクロール操作を受け付けない広告 ========== */
+  .scroll-block-ad {
+    margin: 24px -28px; /* 記事のパディングを打ち消して横幅いっぱいに */
+    position: relative;
+    background: #1a1410;
+    color: #fff;
+    padding: 20px;
+    min-height: 66vh; /* 画面の約2/3 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    touch-action: none; /* スクロール無効化 */
+    user-select: none;
+    overflow: hidden;
+  }
+  .scroll-block-ad::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent, transparent 10px,
+      rgba(255,255,255,.02) 10px, rgba(255,255,255,.02) 11px
+    );
+  }
+  .scroll-block-ad .scroll-visual {
+    font-size: 64px;
+    margin-bottom: 16px;
+  }
+  .scroll-block-ad .scroll-title {
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #f0c040;
+  }
+  .scroll-block-ad .scroll-desc {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 20px;
+    line-height: 1.9;
+  }
+  .scroll-block-ad .warning-tag {
+    display: inline-block;
+    background: #c8391a;
+    color: #fff;
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: .1em;
+    margin-bottom: 10px;
+  }
+
+  /* ========== 5. スクロール無効＋タッチ離し遷移広告 ========== */
+  .redirect-trap-ad {
+    margin: 24px 0;
+    background: linear-gradient(135deg, #1a2a4a, #c8391a);
+    color: #fff;
+    padding: 24px 20px;
+    text-align: center;
+    touch-action: none;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .redirect-trap-ad .trap-icon { font-size: 40px; margin-bottom: 8px; }
+  .redirect-trap-ad .trap-title { font-size: 18px; font-weight: 700; color: #f0c040; line-height:1.5; }
+  .redirect-trap-ad .trap-desc { font-size: 13px; color: rgba(255,255,255,.9); margin-top: 8px; }
+
+  /* ========== 4. スティッキー広告（上部固定） ========== */
+  #sticky-ad {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff8e7;
+    border-bottom: 2px solid var(--ad-border);
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    min-height: 66px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    transform: translateY(-100%);
+    transition: transform .3s ease;
+  }
+  #sticky-ad.visible { transform: translateY(0); }
+  #sticky-ad .sticky-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+  }
+  #sticky-ad .sticky-emoji { font-size: 22px; }
+  #sticky-ad .close-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--ink-light);
+    padding: 4px 8px;
+    line-height: 1;
+  }
+  #sticky-ad .close-btn:hover { color: var(--ink); }
+
+  /* ========== 5. アンカー広告（画面下部固定） ========== */
+  #anchor-ad {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(90deg, #1a2a4a, #2563a8);
+    color: #fff;
+    padding: 10px 20px;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 -2px 12px rgba(0,0,0,.2);
+  }
+  #anchor-ad .anc-left { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+  #anchor-ad .anc-btn {
+    background: #f0c040;
+    color: #1a1410;
+    border: none;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  #anchor-ad .close-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,.7);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-left: 8px;
+  }
+
+  /* ========== 6. フローティング広告 ========== */
+  #floating-ad {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 160px;
+    background: var(--paper);
+    border: 2px solid var(--ad-border);
+    border-radius: 6px;
+    padding: 14px 12px;
+    z-index: 850;
+    box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    text-align: center;
+    animation: floatBob 3s ease-in-out infinite;
+  }
+  @keyframes floatBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  #floating-ad .float-emoji { font-size: 28px; margin-bottom: 6px; }
+  #floating-ad .float-title { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  #floating-ad .float-sub { font-size: 10px; color: var(--ink-light); margin-bottom: 10px; }
+  #floating-ad .close-x {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--ink-light);
+    line-height: 1;
+  }
+
+  /* ========== 7. インタースティシャル広告 ========== */
+  #interstitial-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.85);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+  }
+  #interstitial-overlay.active { display: flex; }
+  #interstitial-box {
+    background: var(--paper);
+    max-width: 480px;
+    width: 90%;
+    padding: 36px 32px;
+    text-align: center;
+    position: relative;
+    border-top: 5px solid var(--accent);
+  }
+  #interstitial-box h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  #interstitial-box p { font-size: 13px; color: var(--ink-light); margin-bottom: 20px; }
+  .inter-visual {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  #inter-skip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+  }
+  #inter-skip .skip-btn {
+    background: none;
+    border: 1px solid var(--rule);
+    color: var(--ink-light);
+    font-size: 12px;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  #inter-skip .skip-btn:hover { border-color: var(--ink); color: var(--ink); }
+  #inter-counter {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+
+  /* ========== 8. モーダル広告 ========== */
+  #modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 8000;
+    align-items: center;
+    justify-content: center;
+  }
+  #modal-overlay.active { display: flex; }
+  #modal-box {
+    background: #fff;
+    max-width: 400px;
+    width: 90%;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,.3);
+  }
+  .modal-header {
+    background: var(--accent);
+    color: #fff;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-header span { font-weight: 700; font-size: 14px; }
+  .modal-header button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .modal-body { padding: 24px 20px; text-align: center; }
+  .modal-visual { font-size: 42px; margin-bottom: 12px; }
+  .modal-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .modal-body p { font-size: 12px; color: var(--ink-light); margin-bottom: 20px; }
+  .modal-cta {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 8px;
+  }
+  .modal-no {
+    display: block;
+    font-size: 11px;
+    color: var(--ink-light);
+    cursor: pointer;
+    text-align: center;
+    padding: 6px;
+  }
+  .modal-no:hover { text-decoration: underline; }
+
+  /* ========== 9. ライトボックス広告 ========== */
+  #lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.92);
+    z-index: 7000;
+    align-items: center;
+    justify-content: center;
+  }
+  #lightbox-overlay.active { display: flex; }
+  #lightbox-box {
+    max-width: 520px;
+    width: 90%;
+    background: linear-gradient(135deg, #1a2a4a 0%, #0d1b2a 100%);
+    color: #fff;
+    padding: 40px 36px;
+    text-align: center;
+    position: relative;
+    border: 1px solid rgba(255,255,255,.1);
+  }
+  .lb-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,.5);
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .lb-close:hover { color: #fff; }
+  .lb-visual { font-size: 52px; margin-bottom: 16px; }
+  #lightbox-box h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #f0c040;
+  }
+  #lightbox-box p { font-size: 13px; color: rgba(255,255,255,.7); margin-bottom: 24px; }
+  .lb-btn {
+    display: inline-block;
+    background: #f0c040;
+    color: #1a1410;
+    padding: 10px 32px;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 12px;
+  }
+  .lb-skip { display: block; font-size: 11px; color: rgba(255,255,255,.4); cursor: pointer; }
+  .lb-skip:hover { color: rgba(255,255,255,.7); }
+
+  /* ========== コントロールパネル ========== */
+  .control-panel {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .control-panel h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 10px;
+  }
+  .btn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .trigger-btn {
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 8px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align: left;
+    border-radius: 2px;
+    transition: background .2s;
+    line-height: 1.4;
+  }
+  .trigger-btn:hover { background: var(--accent); }
+  .trigger-btn .btn-icon { font-size: 14px; display: block; margin-bottom: 2px; }
+
+  /* ========== 説明タグ ========== */
+  .explain-tag {
+    display: inline-block;
+    background: #e8f0fe;
+    border: 1px solid #a8c4f8;
+    color: var(--accent2);
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin: 4px 0 12px;
+  }
+
+  /* ========== 区切り線 ========== */
+  .divider { border: none; border-top: 1px solid var(--rule); margin: 24px 0; }
+
+  /* ========== ⑫ 戻るボタン広告 ========== */
+  #back-trap-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0,0,0,.0);
+    align-items: center;
+    justify-content: center;
+    animation: backTrapFadeIn .35s ease forwards;
+  }
+  @keyframes backTrapFadeIn {
+    from { background: rgba(0,0,0,0); }
+    to   { background: rgba(0,0,0,.88); }
+  }
+  #back-trap-overlay.active { display: flex; }
+  #back-trap-box {
+    background: var(--paper);
+    max-width: 500px;
+    width: 92%;
+    position: relative;
+    border-top: 5px solid var(--accent2);
+    text-align: center;
+    overflow: hidden;
+    animation: backTrapSlideUp .4s cubic-bezier(.22,1,.36,1) forwards;
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  @keyframes backTrapSlideUp {
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .back-trap-header {
+    background: var(--accent2);
+    color: #fff;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .back-trap-header span {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: .1em;
+  }
+  .back-trap-header button {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,.7);
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .back-trap-header button:hover { color: #fff; }
+  .back-trap-body { padding: 32px 28px; }
+  .back-trap-emoji { font-size: 52px; margin-bottom: 12px; }
+  .back-trap-body h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .back-trap-body p {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+  .back-trap-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .back-trap-cta {
+    background: var(--accent2);
+    color: #fff;
+    border: none;
+    padding: 11px 24px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .back-trap-skip {
+    background: none;
+    border: 1px solid var(--rule);
+    color: var(--ink-light);
+    padding: 11px 20px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .back-trap-skip:hover { border-color: var(--ink); color: var(--ink); }
+  .back-trap-note {
+    font-size: 10px;
+    color: var(--ink-light);
+    font-family: 'DM Mono', monospace;
+    padding: 10px 20px 16px;
+    border-top: 1px solid var(--rule);
+    background: #fafafa;
+  }
+
+  /* ========== ⑬ 動画サイドモーダル ========== */
+  #video-side-ad {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 220px;
+    background: #0d0d0d;
+    z-index: 800;
+    border-radius: 6px 0 0 6px;
+    overflow: hidden;
+    box-shadow: -4px 0 24px rgba(0,0,0,.3);
+    transition: width .35s cubic-bezier(.22,1,.36,1);
+  }
+  #video-side-ad.collapsed {
+    width: 32px;
+  }
+  #video-side-ad .vad-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,.06);
+    padding: 6px 8px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  #video-side-ad .vad-label {
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    color: rgba(255,255,255,.5);
+    letter-spacing: .12em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  #video-side-ad .vad-toggle {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,.5);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px 4px;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: color .2s;
+  }
+  #video-side-ad .vad-toggle:hover { color: #fff; }
+
+  /* CSS-only fake video player */
+  .fake-video-wrap {
+    position: relative;
+    width: 220px;
+    height: 124px;
+    background: #000;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .fake-video-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 40%, #0d2137 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* アニメーションで「動画っぽく」見せる */
+  .fake-video-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 48px;
+  }
+  .fvb {
+    width: 6px;
+    background: rgba(100,180,255,.6);
+    border-radius: 2px 2px 0 0;
+    animation: barPulse 1.2s ease-in-out infinite;
+  }
+  .fvb:nth-child(1) { animation-delay: 0s;    animation-duration: 0.9s; }
+  .fvb:nth-child(2) { animation-delay: .15s;  animation-duration: 1.1s; }
+  .fvb:nth-child(3) { animation-delay: .3s;   animation-duration: 0.8s; }
+  .fvb:nth-child(4) { animation-delay: .45s;  animation-duration: 1.3s; }
+  .fvb:nth-child(5) { animation-delay: .6s;   animation-duration: 1.0s; }
+  .fvb:nth-child(6) { animation-delay: .2s;   animation-duration: 0.7s; }
+  .fvb:nth-child(7) { animation-delay: .5s;   animation-duration: 1.2s; }
+  @keyframes barPulse {
+    0%, 100% { height: 8px;  opacity: .5; }
+    50%       { height: 44px; opacity: 1;  }
+  }
+  /* 走査線オーバーレイ */
+  .fake-video-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent, transparent 2px,
+      rgba(0,0,0,.18) 2px, rgba(0,0,0,.18) 4px
+    );
+    pointer-events: none;
+  }
+  /* 左上の●REC */
+  .fake-rec {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    color: #ff4444;
+    font-weight: 700;
+    letter-spacing: .08em;
+  }
+  .fake-rec-dot {
+    width: 7px; height: 7px;
+    background: #ff4444;
+    border-radius: 50%;
+    animation: recBlink 1s step-start infinite;
+  }
+  @keyframes recBlink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  /* 右上タイマー */
+  .fake-timer {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    color: rgba(255,255,255,.6);
+  }
+  /* プログレスバー */
+  .fake-progress-track {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,.15);
+  }
+  .fake-progress-fill {
+    height: 100%;
+    background: #4fa3e0;
+    width: 0%;
+    animation: progressFill 18s linear infinite;
+  }
+  @keyframes progressFill { from{width:0%} to{width:100%} }
+
+  /* 動画下のテキスト */
+  .vad-content {
+    padding: 10px 12px 12px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .vad-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .vad-sub {
+    font-size: 10px;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .vad-cta {
+    display: block;
+    background: #f0c040;
+    color: #1a1410;
+    text-align: center;
+    padding: 7px 0;
+    font-size: 11px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+    width: 100%;
+  }
+
+  /* 折りたたみ時は中身を非表示に */
+  #video-side-ad.collapsed .vad-label,
+  #video-side-ad.collapsed .fake-video-wrap,
+  #video-side-ad.collapsed .vad-content { display: none; }
+  #video-side-ad.collapsed .vad-topbar {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    padding: 12px 6px;
+    height: auto;
+    justify-content: center;
+    border-bottom: none;
+  }
+  #video-side-ad.collapsed .vad-toggle { transform: none; }
+
+  /* ========== ⑭ カウントダウン付き全画面ポップアップ ========== */
+  #countdown-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+    background: rgba(0,0,0,.9);
+    align-items: center;
+    justify-content: center;
+  }
+  #countdown-overlay.active { display: flex; }
+  #countdown-box {
+    background: linear-gradient(135deg, #c8391a, #8b0000);
+    color: #fff;
+    max-width: 460px;
+    width: 90%;
+    padding: 40px 32px;
+    text-align: center;
+    position: relative;
+    border: 3px solid #f0c040;
+    box-shadow: 0 0 60px rgba(240,192,64,.4);
+  }
+  #countdown-box .cd-emoji { font-size: 48px; margin-bottom: 12px; animation: cdShake .5s infinite; }
+  @keyframes cdShake {
+    0%,100%{transform:rotate(0)} 25%{transform:rotate(-8deg)} 75%{transform:rotate(8deg)}
+  }
+  #countdown-box h2 { font-family:'Noto Serif JP',serif; font-size:22px; margin-bottom:8px; }
+  #countdown-box p { font-size:13px; opacity:.9; margin-bottom:16px; }
+  #countdown-clock {
+    font-family:'DM Mono',monospace;
+    font-size:42px;
+    font-weight:700;
+    color:#f0c040;
+    margin-bottom:20px;
+    letter-spacing:.05em;
+  }
+  #countdown-box .cd-cta {
+    background:#f0c040; color:#1a1410; border:none;
+    padding:14px 36px; font-size:16px; font-weight:700;
+    cursor:pointer; border-radius:2px; font-family:'Noto Sans JP',sans-serif;
+    margin-bottom:14px; width:100%;
+    animation: cdPulse 1s infinite;
+  }
+  @keyframes cdPulse {
+    0%,100%{transform:scale(1)} 50%{transform:scale(1.04)}
+  }
+  /* わざと小さく押しにくい閉じるボタン */
+  #countdown-box .cd-close {
+    position:absolute; top:6px; right:8px;
+    background:none; border:none; color:rgba(255,255,255,.35);
+    font-size:11px; cursor:pointer; line-height:1;
+  }
+  #countdown-box .cd-close:hover { color:rgba(255,255,255,.7); }
+
+  /* ========== ⑮ 偽システム通知広告 ========== */
+  #fake-notif {
+    position: fixed;
+    top: 80px;
+    right: -360px;
+    width: 320px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.25);
+    z-index: 870;
+    overflow: hidden;
+    transition: right .5s cubic-bezier(.22,1,.36,1);
+  }
+  #fake-notif.show { right: 20px; }
+  #fake-notif .fn-head {
+    display:flex; align-items:center; gap:8px;
+    padding:8px 12px; background:#f1f3f4; border-bottom:1px solid #e0e0e0;
+  }
+  #fake-notif .fn-icon {
+    width:18px; height:18px; background:#c8391a; border-radius:4px;
+    display:flex; align-items:center; justify-content:center; font-size:11px;
+  }
+  #fake-notif .fn-site { font-size:11px; color:#555; flex:1; font-family:'DM Mono',monospace; }
+  #fake-notif .fn-x { background:none; border:none; cursor:pointer; color:#999; font-size:14px; }
+  #fake-notif .fn-body { padding:12px 14px; display:flex; gap:10px; align-items:flex-start; }
+  #fake-notif .fn-avatar { font-size:28px; }
+  #fake-notif .fn-text { flex:1; }
+  #fake-notif .fn-title { font-size:13px; font-weight:700; margin-bottom:2px; }
+  #fake-notif .fn-msg { font-size:11px; color:#666; line-height:1.5; }
+  #fake-notif .fn-actions { display:flex; gap:8px; padding:0 14px 12px; }
+  #fake-notif .fn-btn {
+    flex:1; padding:7px; font-size:11px; border-radius:4px; cursor:pointer;
+    border:none; font-family:'Noto Sans JP',sans-serif; font-weight:700;
+  }
+  #fake-notif .fn-btn.allow { background:#1a73e8; color:#fff; }
+  #fake-notif .fn-btn.block { background:#f1f3f4; color:#555; }
+
+  /* ========== ⑯ サイドレール広告（左右の余白） ========== */
+  .side-rail {
+    position: fixed;
+    top: 120px;
+    width: 120px;
+    z-index: 700;
+    text-align: center;
+  }
+  .side-rail-left { left: 8px; }
+  .side-rail-right { right: 8px; }
+  .side-rail .sr-inner {
+    background: var(--ad-bg);
+    border: 1.5px solid var(--ad-border);
+    border-radius: 4px;
+    padding: 10px 8px;
+  }
+  .side-rail .sr-visual {
+    width: 100%; height: 240px;
+    background: linear-gradient(160deg, #ff6b6b, #feca57);
+    border-radius: 3px; margin-bottom: 8px;
+    display:flex; align-items:center; justify-content:center; font-size:40px;
+  }
+  .side-rail .sr-text { font-size:10px; font-weight:700; margin-bottom:6px; line-height:1.4; }
+  /* 画面が狭いと隠す */
+  @media (max-width: 1180px) { .side-rail { display: none; } }
+
+  /* ========== ⑰ Cookie同意バナー（ダークパターン） ========== */
+  #cookie-banner {
+    position: fixed;
+    bottom: 56px;
+    left: 16px;
+    right: 16px;
+    max-width: 560px;
+    margin: 0 auto;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    padding: 18px 20px;
+    z-index: 950;
+    box-shadow: 0 10px 40px rgba(0,0,0,.3);
+    display: none;
+  }
+  #cookie-banner.show { display: block; }
+  #cookie-banner h4 { font-size:14px; margin-bottom:8px; }
+  #cookie-banner p { font-size:11px; color:var(--ink-light); margin-bottom:14px; line-height:1.6; }
+  #cookie-banner .ck-btns { display:flex; gap:10px; align-items:center; }
+  /* 「同意」は大きく目立つ、「拒否」はわざと地味で小さい */
+  #cookie-banner .ck-accept {
+    background:#16a34a; color:#fff; border:none;
+    padding:12px 32px; font-size:14px; font-weight:700; cursor:pointer;
+    border-radius:4px; font-family:'Noto Sans JP',sans-serif; flex:1;
+  }
+  #cookie-banner .ck-reject {
+    background:none; border:none; color:#aaa;
+    font-size:10px; cursor:pointer; text-decoration:underline;
+    font-family:'Noto Sans JP',sans-serif; padding:4px;
+  }
+
+  /* ========== ⑱ アイドル/復帰トリガー全画面動画広告 ========== */
+  #idle-video-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9800;
+    background: #000;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  #idle-video-overlay.active { display: flex; }
+  .idle-video-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* CSSだけで派手に動く「動画」 */
+  .idle-video-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(-45deg, #c8391a, #8b0000, #1a2a4a, #2563a8, #6a0dad);
+    background-size: 400% 400%;
+    animation: idleGradient 8s ease infinite;
+  }
+  @keyframes idleGradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+  .idle-video-shapes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .ivs {
+    position: absolute;
+    border-radius: 50%;
+    opacity: .25;
+    animation: ivsFloat 6s ease-in-out infinite;
+  }
+  .ivs:nth-child(1){width:200px;height:200px;background:#f0c040;top:10%;left:15%;animation-delay:0s;}
+  .ivs:nth-child(2){width:140px;height:140px;background:#fff;top:60%;left:70%;animation-delay:1.5s;}
+  .ivs:nth-child(3){width:280px;height:280px;background:#ff6b6b;top:40%;left:40%;animation-delay:3s;}
+  .ivs:nth-child(4){width:100px;height:100px;background:#4fa3e0;top:20%;left:80%;animation-delay:2s;}
+  @keyframes ivsFloat {
+    0%,100%{transform:translateY(0) scale(1)}
+    50%{transform:translateY(-40px) scale(1.15)}
+  }
+  .idle-video-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+  }
+  .idle-video-content .iv-emoji {
+    font-size: 80px;
+    margin-bottom: 16px;
+    animation: ivBounce 1.2s ease-in-out infinite;
+  }
+  @keyframes ivBounce {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)}
+  }
+  .idle-video-content h2 {
+    font-family:'Noto Serif JP',serif;
+    font-size: 36px;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 20px rgba(0,0,0,.5);
+  }
+  .idle-video-content p {
+    font-size: 16px;
+    opacity: .9;
+    margin-bottom: 28px;
+  }
+  .idle-video-content .iv-cta {
+    background:#f0c040; color:#1a1410; border:none;
+    padding:16px 48px; font-size:18px; font-weight:700;
+    cursor:pointer; border-radius:4px; font-family:'Noto Sans JP',sans-serif;
+    box-shadow:0 6px 30px rgba(240,192,64,.5);
+  }
+  /* REC表示・タイマー・トリガー理由 */
+  .idle-video-rec {
+    position:absolute; top:20px; left:24px; z-index:3;
+    display:flex; align-items:center; gap:6px;
+    font-family:'DM Mono',monospace; font-size:12px; color:#ff5555; font-weight:700;
+  }
+  .idle-video-rec .dot {
+    width:9px;height:9px;background:#ff4444;border-radius:50%;
+    animation: recBlink 1s step-start infinite;
+  }
+  .idle-trigger-reason {
+    position:absolute; top:20px; left:50%; transform:translateX(-50%); z-index:3;
+    font-family:'DM Mono',monospace; font-size:11px;
+    color:rgba(255,255,255,.6); background:rgba(0,0,0,.4);
+    padding:4px 12px; border-radius:20px; white-space:nowrap;
+  }
+  /* スキップボタンは右下に、最初は押せない */
+  .idle-video-skip {
+    position:absolute; bottom:24px; right:24px; z-index:3;
+    background:rgba(0,0,0,.5); color:rgba(255,255,255,.7);
+    border:1px solid rgba(255,255,255,.3);
+    padding:10px 20px; font-size:13px; cursor:pointer; border-radius:4px;
+    font-family:'Noto Sans JP',sans-serif;
+  }
+  .idle-video-skip:disabled { opacity:.4; cursor:not-allowed; }
+  .idle-video-skip:not(:disabled):hover { background:rgba(0,0,0,.7); color:#fff; }
+
+  /* ========== ⑲ 2つ目のライトボックス広告（隠れた閉じるボタン） ========== */
+  #lightbox2-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.94);
+    z-index: 7100;
+    align-items: center;
+    justify-content: center;
+  }
+  #lightbox2-overlay.active { display: flex; }
+  #lightbox2-box {
+    max-width: 560px;
+    width: 92%;
+    background: linear-gradient(135deg, #2d1b4e 0%, #1a0d2e 100%);
+    color: #fff;
+    padding: 48px 40px;
+    text-align: center;
+    position: relative;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 4px;
+  }
+  #lightbox2-box .lb2-visual { font-size: 64px; margin-bottom: 18px; }
+  #lightbox2-box h2 {
+    font-family:'Noto Serif JP',serif; font-size: 26px;
+    margin-bottom: 12px; color:#d4a5ff;
+  }
+  #lightbox2-box p { font-size:14px; color:rgba(255,255,255,.65); margin-bottom:28px; line-height:1.8; }
+  #lightbox2-box .lb2-btn {
+    background:linear-gradient(90deg,#a855f7,#6366f1); color:#fff; border:none;
+    padding:14px 44px; font-size:16px; font-weight:700; cursor:pointer;
+    border-radius:30px; font-family:'Noto Sans JP',sans-serif;
+    box-shadow:0 6px 24px rgba(168,85,247,.4);
+  }
+  /* 閉じるボタン：モーダルから離して画面の右上隅に配置 */
+  #lightbox2-overlay .lb2-close {
+    position:fixed;
+    top: 16px;
+    right: 16px;
+    background:none;
+    border:none;
+    color:rgba(255,255,255,.35);  /* 暗背景に薄く溶ける白 */
+    font-size:13px;
+    cursor:pointer;
+    line-height:1;
+    font-family:'DM Mono',monospace;
+  }
+  #lightbox2-overlay .lb2-close:hover { color:rgba(255,255,255,.8); }
+
+  /* ========== レスポンシブ ========== */
+  @media (max-width: 680px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    #floating-ad { width: 130px; right: 10px; }
+    .btn-grid { grid-template-columns: 1fr; }
+    #video-side-ad { width: 180px; }
+    .fake-video-wrap { width: 180px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ① バナー広告（ページ最上部） -->
+<div id="banner-ad">
+  <span class="ad-badge badge">広告</span>
+  🎉 <strong>期間限定セール開催中！</strong> 全商品30%OFF ／ 今すぐチェック →
+</div>
+
+<!-- ② スティッキー広告（スクロールで上から降りてくる） -->
+<div id="sticky-ad">
+  <div class="sticky-content">
+    <span class="ad-badge">広告</span>
+    <span class="sticky-emoji">🛒</span>
+    <span><strong>あなたにオススメ</strong> — スペシャルプライスで今すぐ購入！</span>
+    <a href="#" class="ad-btn" style="white-space:nowrap">詳しく見る</a>
+  </div>
+  <button class="close-btn" onclick="document.getElementById('sticky-ad').classList.remove('visible')">✕</button>
+</div>
+
+<header>
+  <div class="site-name">📰 日刊ウェブ新聞</div>
+  <div class="tagline">WEB ADVERTISEMENT SHOWCASE — ALL TYPES DEMONSTRATED</div>
+</header>
+
+<div class="page-wrap">
+
+  <!-- メイン記事 -->
+  <main>
+
+    <!-- 広告トリガーパネル -->
+    <article>
+      <div class="article-eyebrow">特集記事 / FEATURE</div>
+      <h1>インターネット広告の歴史と進化<br>—— ユーザーを翻弄する広告の全形態</h1>
+      <div class="article-meta">2026年5月22日　記者：山田 太郎</div>
+
+      <p>インターネットが普及して以来、ウェブ広告は様々な形態へと進化してきた。ページの隅にひっそり表示されるバナーから、操作を一切受け付けない強制表示型まで、広告主とユーザーの間では常に攻防が繰り広げられている。</p>
+
+      <!-- ③ 記事内広告 -->
+      <div class="in-article-ad">
+        <div class="ad-visual">🏠</div>
+        <div class="ad-body">
+          <div class="ad-type-label">③ 記事内広告 / IN-ARTICLE AD</div>
+          <div class="ad-title">理想の物件、見つかりますか？</div>
+          <div class="ad-desc">全国50万件以上の物件情報。今すぐ無料で検索。<br>
+          <span class="ad-badge" style="margin-top:4px;display:inline-block">PR</span></div>
+        </div>
+      </div>
+
+      <h2>バナー広告の誕生</h2>
+
+      <p>1994年、最初のバナー広告がAT&Tによって掲載された。クリック率はなんと44%。当時のユーザーにとって、カラフルな帯状の広告は珍しく、思わず押したくなるものだったという。しかし現在では、バナー広告のクリック率は0.1%を下回ることも珍しくない。</p>
+
+      <p>ユーザーが広告を無意識に無視する現象は「バナー盲目（Banner Blindness）」と呼ばれ、広告業界における深刻な課題となっている。これを打開すべく、広告はより侵襲的な形態へと進化していった。視線追跡の研究によれば、ユーザーはページ上部の横長領域を「広告がある場所」と学習し、そこを意図的に飛ばして読むようになるという。</p>
+
+      <p>この問題に対し、広告主たちはコンテンツとの境界を曖昧にする方向へと舵を切った。記事と見分けがつかない「ネイティブ広告」、フィードに紛れ込む「インフィード広告」など、ユーザーが「広告だと気づく前に読ませる」手法が次々と生まれていった。</p>
+
+      <!-- 記事内広告（テキスト型） -->
+      <div class="in-article-ad" style="background:#f0f8ff;border-color:#90caf9;">
+        <div class="ad-visual" style="background:linear-gradient(135deg,#a1c4fd,#c2e9fb);">📚</div>
+        <div class="ad-body">
+          <div class="ad-type-label" style="color:#1565c0;">記事内広告 / IN-ARTICLE AD</div>
+          <div class="ad-title">話題のオンライン講座、初月無料</div>
+          <div class="ad-desc">スキルアップは今がチャンス。5万人が受講中。<span class="ad-badge" style="margin-left:6px;">PR</span></div>
+        </div>
+      </div>
+
+      <h2>侵襲的広告の時代</h2>
+
+      <p>2000年代に入ると、ポップアップ広告が猛威を振るった。新しいウィンドウが勝手に開き、閉じても閉じても次々と現れる。ユーザーの怒りは頂点に達し、ついにブラウザ側がポップアップブロック機能を標準搭載するに至った。</p>
+
+      <p>しかし広告主は諦めなかった。ブロックを回避するため、ページ内に重なって表示される「モーダル」「ライトボックス」「インタースティシャル」といったオーバーレイ型へと移行した。これらはブラウザのポップアップブロックをすり抜け、今なお広く使われている。</p>
+
+      <!-- スクロールトリガーマーカー① -->
+      <div id="scroll-trigger-1" style="height:1px;"></div>
+
+      <p>近年では、ユーザーの行動を逆手に取った手法も登場している。ページを離れようとマウスを画面外へ動かした瞬間に表示される「離脱防止ポップアップ（Exit Intent）」、戻るボタンを押すと履歴を操作して引き止める「バックボタン・トラップ」などだ。これらは技術的には巧妙だが、ユーザー体験を著しく損なう。</p>
+
+      <!-- レスポンシブ・レクタングル -->
+      <div class="in-article-ad" style="flex-direction:column;text-align:center;border-style:solid;">
+        <div class="ad-type-label">記事内レクタングル広告</div>
+        <div style="width:100%;height:120px;background:linear-gradient(135deg,#ffd966,#ff9f43);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:44px;margin:8px 0;">🚗</div>
+        <div class="ad-title">新車購入で最大50万円キャッシュバック</div>
+        <div class="ad-desc">来店予約はこちら。今月末まで。</div>
+        <a class="ad-btn" href="#" style="margin-top:8px;">予約する</a>
+      </div>
+
+      <p>広告の「しつこさ」はエスカレートする一方だ。一度閉じても数秒後に再び現れるフローティング広告、ブラウザの通知許可ダイアログを装った偽通知、カウントダウンで「あと10分」と煽りながら永遠に終わらないタイマー——こうした手法は「ダークパターン」と総称され、近年は規制の対象にもなりつつある。</p>
+
+      <h2>スティッキー広告とフローティング広告</h2>
+
+      <p>スクロールしても追いかけてくる「スティッキー広告」や「フローティング広告」は、視認率を飛躍的に高める反面、ユーザー体験を著しく損なうとして批判も多い。Googleは2017年、こうした煩わしい広告を「迷惑な広告」と定義し、Chromeでブロックする方針を発表した。</p>
+
+      <p>それでも広告主は次々と新しい手法を開発し続ける。ユーザーの注意を引くため、動画を自動再生したり、音声を流したり、時には画面全体を覆い尽くすものまで登場した。特に動画広告は単価が高く、媒体社にとって魅力的な収益源であるため、スキップできない仕様や、操作が一定時間ないと自動で再生される仕様などが横行している。</p>
+
+      <p>その代表例が、コンテンツの途中に挟み込まれる巨大な広告枠だ。次に登場する広告は、一見すると普通のキャンペーン広告に見える。しかし実際には <code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:12px;">touch-action: none</code> とホイールイベントの <code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:12px;">preventDefault</code> によって、広告の上ではスクロールが一切効かないように仕込まれている。画面の約3分の2を占有しているため、読者はこの「スクロールの壁」を前に立ち往生してしまう。広告には何の警告も書かれていないので、ユーザーは「なぜか急にスクロールできなくなった」と戸惑うことになる。</p>
+
+      <!-- ④ スクロール操作を受け付けない広告（ヒントなし・いかにも広告風） -->
+      <div class="scroll-block-ad" ontouchstart="return false;" ontouchmove="return false;" onwheel="event.preventDefault();">
+        <span class="ad-badge" style="position:absolute;top:12px;right:12px;">広告</span>
+        <div class="scroll-visual">🏝️</div>
+        <div class="scroll-title">今だけ限定 ✈️ 夢のリゾート旅行</div>
+        <div class="scroll-desc">
+          沖縄・ハワイ・モルディブ……<br>
+          憧れの楽園が、今なら最大<strong style="color:#fff;">60%OFF</strong>。<br>
+          人気プランは早い者勝ち、残りわずか！
+        </div>
+        <a class="ad-btn" href="#">今すぐ予約する →</a>
+      </div>
+
+      <p>このように、広告自体は魅力的なオファーを装いながら、裏ではユーザーの操作を妨害している。読者は記事を読み進めるために、嫌でも広告を視界に入れ続けることになる。</p>
+
+      <!-- スクロールトリガーマーカー② -->
+      <div id="scroll-trigger-2" style="height:1px;"></div>
+
+      <p>こうした広告の氾濫は、広告ブロッカーの普及という形でユーザーの反撃を招いた。世界では数億人がアドブロックを利用しているとされ、媒体社の広告収入を圧迫している。広告主とユーザーの「いたちごっこ」は今も続いている。</p>
+
+      <!-- ネイティブ広告風 -->
+      <div class="in-article-ad" style="background:var(--paper);border:1px solid var(--rule);border-style:solid;">
+        <div class="ad-visual" style="background:linear-gradient(135deg,#84fab0,#8fd3f4);">🍳</div>
+        <div class="ad-body">
+          <div style="font-size:10px;color:#aaa;margin-bottom:2px;">スポンサードコンテンツ</div>
+          <div class="ad-title">【PR】プロが教える、たった5分の時短レシピ10選</div>
+          <div class="ad-desc">忙しい朝でもできる絶品メニューをご紹介。続きを読む →</div>
+        </div>
+      </div>
+
+      <h2>インタースティシャルとモーダル</h2>
+
+      <p>ページ遷移時に全画面で表示される「インタースティシャル広告」は、モバイルでの使用が特に問題視されている。Googleは2017年よりモバイルにおける全画面インタースティシャルをランキング低下の対象としているが、完全にはなくなっていない。</p>
+
+      <p>「モーダル広告」はページ上に重なって表示され、閉じるボタンを押さない限りコンテンツへのアクセスができない。メールアドレスの登録を迫るものや、クーポンの受け取りを促すものが一般的だ。閉じるボタンをわざと小さく、見えにくい色にして、ユーザーが誤ってクリックしてしまうよう誘導する「ダークパターン」も多用される。</p>
+
+      <!-- スクロールトリガーマーカー③ -->
+      <div id="scroll-trigger-3" style="height:1px;"></div>
+
+      <p>とりわけ悪質なのが、閉じるボタンを背景に溶け込ませる手法だ。広告を閉じたいユーザーは、目立つ「申し込む」ボタンを避けて、隅にある灰色の極小テキストを探さなければならない。この「閉じにくさ」こそが、誤クリックによる広告効果を生むのである。</p>
+
+      <p>さらに悪質なのが、次に示すタイプだ。これも見た目は普通のバナー広告だが、二重の罠が仕掛けられている。第一に、前の例と同じくスクロールが無効化されている。第二に、ユーザーがマウスのボタンを離した瞬間（<code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:12px;">mouseup</code>）、あるいはスマホで指を離した瞬間（<code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:12px;">touchend</code>）に、別サイトへ強制的に遷移させる仕組みになっている。つまり、スクロールしようとして広告に触れ、指を離しただけで——クリックした覚えがないのに——まったく別のページへ飛ばされてしまうのだ。下の広告は、うっかり触ると <code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:12px;">example.com</code> へ遷移する（新しいタブで開きます）。</p>
+
+      <!-- ⑤ スクロール無効＋タッチ離し遷移広告（ヒントなし・いかにも広告風） -->
+      <div class="redirect-trap-ad"
+           ontouchstart="return false;"
+           ontouchmove="return false;"
+           onwheel="event.preventDefault();"
+           onmouseup="window.open('https://example.com','_blank')"
+           ontouchend="window.open('https://example.com','_blank')">
+        <span class="ad-badge" style="background:#fff;color:#1a1410;">広告</span>
+        <div class="trap-icon">🎁</div>
+        <div class="trap-title">＼ 抽選で1000名様に当たる ／<br>最新スマホプレゼントキャンペーン</div>
+        <div class="trap-desc">
+          応募はかんたん、タップするだけ！<br>
+          あなたも豪華賞品のチャンス。
+        </div>
+      </div>
+
+      <p>このように、広告主は「クリックしていないのにクリックさせる」ための様々な手口を編み出してきた。意図しない遷移は、ユーザーにとっては迷惑そのものだが、広告主にとっては立派な「成果」としてカウントされてしまう。</p>
+
+      <h2>動画広告の攻防</h2>
+
+      <p>動画広告は、テキストやバナーに比べてはるかに高い単価で取引される。そのため媒体社は、できるだけ多くの動画広告を、できるだけ長く視聴させようとする。再生前に流れる「プレロール」、途中で挟まる「ミッドロール」、コンテンツとは無関係に自動再生される「アウトストリーム」など、形態は多岐にわたる。</p>
+
+      <p>近年特に増えているのが、ユーザーの操作が一定時間途絶えたときや、ブラウザのタブを切り替えて戻ってきたときに、突然全画面で再生される動画広告だ。ユーザーが「ながら見」や「離席」をしている隙を突いて、広告の視聴回数を稼ぐ狙いがある。</p>
+
+      <!-- スクロールトリガーマーカー④ -->
+      <div id="scroll-trigger-4" style="height:1px;"></div>
+
+      <p>このページでも、10秒間スクロールやタップがないか、あるいは一度別のタブやアプリに切り替えてから戻ってくると、全画面の動画広告が表示される。実際のサイトで体験する「あの煩わしさ」を、ぜひ味わってみてほしい。</p>
+
+      <!-- もう一つの記事内広告 -->
+      <div class="in-article-ad" style="border-style:solid;">
+        <div class="ad-visual" style="background:linear-gradient(135deg,#fbc2eb,#a6c1ee);">💄</div>
+        <div class="ad-body">
+          <div class="ad-type-label">記事内広告</div>
+          <div class="ad-title">大人気コスメ、今だけ初回70%OFF</div>
+          <div class="ad-desc">SNSで話題沸騰中。在庫わずか。<span class="ad-badge" style="margin-left:6px;">PR</span></div>
+        </div>
+      </div>
+
+      <h2>これからの広告</h2>
+
+      <p>広告とユーザー体験のバランスは、永遠の課題だ。媒体社は収益を確保しなければ運営を続けられないが、過度な広告はユーザーを遠ざける。近年は、広告の質や表示頻度を業界全体で自主規制する動き（Coalition for Better Adsなど）や、プライバシーに配慮した広告技術への移行も進んでいる。</p>
+
+      <p>とはいえ、本ページで見てきたような「あの手この手」の広告は、形を変えながら今後も存在し続けるだろう。ユーザーとしては、その仕組みを知り、賢く付き合っていくことが大切だ。この見本サイトが、その理解の一助となれば幸いである。</p>
+
+      <p>最後に、改めて本ページに登場した広告の種類を振り返っておこう。バナー、レクタングル、スティッキー、フローティング、アンカー、インタースティシャル、モーダル、ライトボックス、記事内、スクロール無効、タッチ離し遷移、戻るボタン、動画サイドモーダル、カウントダウン、偽通知、サイドレール、Cookieバナー、アイドル動画……。これだけの種類が、たった一つのページに同居しうるのである。</p>
+
+      <div class="control-panel" style="margin-top:28px;margin-bottom:8px;">
+        <h3>🎛️ 仕組みがわかったところで、自分で出してみよう</h3>
+        <p style="font-size:12px;color:var(--ink-light);margin-bottom:14px;margin-top:-6px;">
+          記事を読んだ今なら、各広告の「いやらしさ」がよくわかるはず。下のボタンで手動でも表示できます。<br>
+          ※ 一部の広告は、ここまで<strong>スクロールして読み進める間にも勝手に</strong>表示されていたはずです。
+          また、<strong>10秒間操作しない</strong>か、<strong>タブを切り替えて戻る</strong>と全画面動画広告が出ます。
+        </p>
+        <div class="btn-grid">
+          <button class="trigger-btn" onclick="showInterstitial()">
+            <span class="btn-icon">📄</span>⑦ インタースティシャル広告
+          </button>
+          <button class="trigger-btn" onclick="showModal()">
+            <span class="btn-icon">🪟</span>⑧ モーダル広告
+          </button>
+          <button class="trigger-btn" onclick="showLightbox()">
+            <span class="btn-icon">💡</span>⑨ ライトボックス広告
+          </button>
+          <button class="trigger-btn" onclick="showBackTrap()">
+            <span class="btn-icon">⬅️</span>⑫ 戻るボタン広告（体験）
+          </button>
+          <button class="trigger-btn" onclick="showCountdown()">
+            <span class="btn-icon">⏰</span>⑭ カウントダウン全画面広告
+          </button>
+          <button class="trigger-btn" onclick="showFakeNotif()">
+            <span class="btn-icon">🔔</span>⑮ 偽システム通知広告
+          </button>
+          <button class="trigger-btn" onclick="triggerIdleVideo('手動で表示しました')">
+            <span class="btn-icon">🎬</span>⑱ アイドル全画面動画広告
+          </button>
+          <button class="trigger-btn" onclick="showLightbox2()">
+            <span class="btn-icon">🎰</span>⑲ 隠れ閉じるボタン広告
+          </button>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <p style="font-size:12px;color:var(--ink-light);text-align:center">
+        ※ このページはWeb広告の形態を学習・体験するための見本サイトです。<br>
+        実際の広告主・商品とは無関係のサンプルです。
+      </p>
+    </article>
+  </main>
+
+  <!-- サイドバー -->
+  <aside class="sidebar">
+    <div class="sidebar-sticky">
+
+      <!-- ② レクタングル広告 -->
+      <div class="ad-rect">
+        <div class="ad-type-label">② レクタングル広告 / RECTANGLE AD</div>
+        <div class="rect-visual">🎮</div>
+        <div class="ad-headline">新作ゲーム登場！</div>
+        <div class="ad-sub">シーズンパス含む特典付き<br>限定パッケージ販売中</div>
+        <a class="ad-btn" href="#">今すぐ予約</a>
+      </div>
+
+      <!-- もう一つのレクタングル -->
+      <div class="ad-rect" style="background:#f0f8ff;border-color:#90caf9;">
+        <div class="ad-type-label" style="color:#1565c0;">② レクタングル広告（小）</div>
+        <div style="font-size:32px;margin-bottom:8px;">✈️</div>
+        <div class="ad-headline">格安航空券を探す</div>
+        <div class="ad-sub">東京発 各地へ<br>最安値を比較検索</div>
+        <a class="ad-btn" href="#" style="background:#2563a8;">検索する</a>
+      </div>
+
+    </div>
+  </aside>
+
+</div>
+
+<!-- ⑥ フローティング広告 -->
+<div id="floating-ad">
+  <button class="close-x" onclick="closeFloatingAd()">✕</button>
+  <div class="ad-type-label">⑥ フローティング広告</div>
+  <div class="float-emoji">🎁</div>
+  <div class="float-title">会員登録で<br>500円OFF！</div>
+  <div class="float-sub">今月末まで限定</div>
+  <a class="ad-btn" style="font-size:11px;padding:5px 12px" href="#">登録する</a>
+</div>
+
+<!-- ④ アンカー広告（画面下部） ← 番号を整合させるため説明は⑤ -->
+<div id="anchor-ad">
+  <div class="anc-left">
+    <span class="ad-badge">⑤ アンカー広告</span>
+    <span>📱 アプリをダウンロードして、さらに便利に！</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px">
+    <button class="anc-btn">無料ダウンロード</button>
+    <button class="close-btn" onclick="document.getElementById('anchor-ad').style.display='none'">✕</button>
+  </div>
+</div>
+
+<!-- ⑦ インタースティシャル広告 -->
+<div id="interstitial-overlay">
+  <div id="interstitial-box">
+    <div class="ad-type-label" style="margin-bottom:8px;">⑦ インタースティシャル広告 / INTERSTITIAL AD</div>
+    <div class="inter-visual">🎬</div>
+    <h2>スペシャルオファーのご案内</h2>
+    <p>ページ遷移のタイミングで全画面表示される広告です。<br>スキップまで少々お待ちください。</p>
+    <a class="ad-btn" href="#" style="display:inline-block;margin-bottom:16px;">オファーを確認する →</a>
+    <div id="inter-skip">
+      <span id="inter-counter">5秒後にスキップ可能...</span>
+      <button class="skip-btn" id="inter-skip-btn" disabled onclick="closeInterstitial()">スキップ ✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- ⑧ モーダル広告 -->
+<div id="modal-overlay">
+  <div id="modal-box">
+    <div class="modal-header">
+      <span><span class="ad-badge">AD</span>⑧ モーダル広告 / MODAL AD</span>
+      <button onclick="document.getElementById('modal-overlay').classList.remove('active')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-visual">🛍️</div>
+      <h3>初回限定！20%OFFクーポン</h3>
+      <p>メールアドレスを登録してクーポンを受け取ろう。<br>このウィンドウを閉じるまでコンテンツにアクセスできません。</p>
+      <button class="modal-cta">クーポンを受け取る</button>
+      <span class="modal-no" onclick="document.getElementById('modal-overlay').classList.remove('active')">
+        いいえ、お得な情報は必要ありません
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ⑫ 戻るボタン広告 -->
+<div id="back-trap-overlay">
+  <div id="back-trap-box">
+    <div class="back-trap-header">
+      <span>⑫ 戻るボタン広告 / BACK-BUTTON TRAP AD</span>
+      <button onclick="closeBackTrap()">✕</button>
+    </div>
+    <div class="back-trap-body">
+      <div class="back-trap-emoji">⬅️</div>
+      <h2>ちょっと待って！<br>特別オファーがあります</h2>
+      <p>
+        ブラウザの「戻る」ボタンを押したタイミングで<br>
+        <code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:11px">history.pushState()</code> で履歴を操作し、<br>
+        <code style="background:#eee;padding:1px 5px;border-radius:2px;font-size:11px">popstate</code> イベントを検知して表示される広告です。<br>
+        「戻れない」と感じさせることが目的です。
+      </p>
+      <div class="back-trap-btns">
+        <button class="back-trap-cta">オファーを見る</button>
+        <button class="back-trap-skip" onclick="closeBackTrap()">このまま戻る</button>
+      </div>
+    </div>
+    <div class="back-trap-note">
+      ※ 実際にはこのページに留まります。ブラウザの戻るボタンを再度押すと前のページへ戻れます。
+    </div>
+  </div>
+</div>
+
+<!-- ⑬ 動画サイドモーダル -->
+<div id="video-side-ad">
+  <div class="vad-topbar">
+    <span class="vad-label">⑬ 動画サイドモーダル広告</span>
+    <button class="vad-toggle" onclick="toggleVideoAd()" title="折りたたむ">▶</button>
+  </div>
+  <div class="fake-video-wrap">
+    <div class="fake-video-bg">
+      <div class="fake-video-bars">
+        <div class="fvb"></div><div class="fvb"></div><div class="fvb"></div>
+        <div class="fvb"></div><div class="fvb"></div><div class="fvb"></div>
+        <div class="fvb"></div>
+      </div>
+    </div>
+    <div class="fake-video-scanlines"></div>
+    <div class="fake-rec"><div class="fake-rec-dot"></div>AD</div>
+    <div class="fake-timer" id="vad-timer">0:18</div>
+    <div class="fake-progress-track">
+      <div class="fake-progress-fill"></div>
+    </div>
+  </div>
+  <div class="vad-content">
+    <div class="vad-title">新商品のご紹介！</div>
+    <div class="vad-sub">スキップ不可 — 18秒の広告</div>
+    <button class="vad-cta">詳しく見る →</button>
+  </div>
+</div>
+
+<!-- ⑭ カウントダウン全画面ポップアップ -->
+<div id="countdown-overlay">
+  <div id="countdown-box">
+    <button class="cd-close" onclick="closeCountdown()">閉じる ✕</button>
+    <div class="cd-emoji">🔥</div>
+    <div class="ad-type-label" style="color:#f0c040;">⑭ カウントダウン全画面広告</div>
+    <h2>今だけ限定セール！</h2>
+    <p>このタイマーが0になると特別価格は終了します</p>
+    <div id="countdown-clock">10:00</div>
+    <button class="cd-cta">今すぐ購入する 🛒</button>
+  </div>
+</div>
+
+<!-- ⑮ 偽システム通知広告 -->
+<div id="fake-notif">
+  <div class="fn-head">
+    <div class="fn-icon">📢</div>
+    <span class="fn-site">example-news.com</span>
+    <button class="fn-x" onclick="hideFakeNotif()">✕</button>
+  </div>
+  <div class="fn-body">
+    <div class="fn-avatar">🎁</div>
+    <div class="fn-text">
+      <div class="fn-title">⑮ 通知を受け取りますか？</div>
+      <div class="fn-msg">最新のお得情報をブラウザ通知でお届けします。「許可」を押してください。</div>
+    </div>
+  </div>
+  <div class="fn-actions">
+    <button class="fn-btn block" onclick="hideFakeNotif()">ブロック</button>
+    <button class="fn-btn allow" onclick="hideFakeNotif()">許可する</button>
+  </div>
+</div>
+
+<!-- ⑯ サイドレール広告（左右） -->
+<div class="side-rail side-rail-left">
+  <div class="sr-inner">
+    <div class="ad-type-label" style="font-size:8px;">⑯ サイドレール（左）</div>
+    <div class="sr-visual">🍔</div>
+    <div class="sr-text">デリバリー<br>初回無料！</div>
+    <a class="ad-btn" href="#" style="font-size:10px;padding:5px 10px;">注文する</a>
+  </div>
+</div>
+<div class="side-rail side-rail-right">
+  <div class="sr-inner">
+    <div class="ad-type-label" style="font-size:8px;">⑯ サイドレール（右）</div>
+    <div class="sr-visual" style="background:linear-gradient(160deg,#667eea,#764ba2);">💎</div>
+    <div class="sr-text">高級時計<br>査定アップ中</div>
+    <a class="ad-btn" href="#" style="font-size:10px;padding:5px 10px;background:#667eea;">見積もる</a>
+  </div>
+</div>
+
+<!-- ⑰ Cookie同意バナー（ダークパターン） -->
+<div id="cookie-banner">
+  <h4><span class="ad-badge">⑰</span>🍪 Cookieの使用について</h4>
+  <p>当サイトは、広告の最適化のために200社以上のパートナーとあなたのデータを共有します。あなたの体験を「向上」させるため、ぜひ同意してください。</p>
+  <div class="ck-btns">
+    <button class="ck-accept" onclick="hideCookie()">すべて同意する</button>
+    <button class="ck-reject" onclick="hideCookie()">設定を管理（72項目を個別に拒否）</button>
+  </div>
+</div>
+
+<!-- ⑱ アイドル/復帰トリガー全画面動画広告 -->
+<div id="idle-video-overlay">
+  <div class="idle-video-stage">
+    <div class="idle-video-bg"></div>
+    <div class="idle-video-shapes">
+      <div class="ivs"></div><div class="ivs"></div><div class="ivs"></div><div class="ivs"></div>
+    </div>
+    <div class="idle-video-rec"><span class="dot"></span>AD・<span id="idle-video-timer">0:15</span></div>
+    <div class="idle-trigger-reason" id="idle-trigger-reason">⑱ 全画面動画広告</div>
+    <div class="idle-video-content">
+      <div class="iv-emoji">🎬</div>
+      <h2>あなたへのおすすめ動画</h2>
+      <p>この広告は、操作が10秒間途絶えるか、タブを切り替えて戻ると再生されます</p>
+      <button class="iv-cta">続きを見る ▶</button>
+    </div>
+    <button class="idle-video-skip" id="idle-video-skip" disabled onclick="closeIdleVideo()">スキップ</button>
+  </div>
+</div>
+
+<!-- ⑲ 2つ目のライトボックス広告（隠れた閉じるボタン） -->
+<div id="lightbox2-overlay">
+  <div id="lightbox2-box">
+    <div class="ad-type-label" style="color:#d4a5ff;margin-bottom:12px;">⑲ ライトボックス広告（閉じるボタンがモーダルの外）</div>
+    <div class="lb2-visual">🎰</div>
+    <h2>おめでとうございます！</h2>
+    <p>あなたは本日の幸運な訪問者に選ばれました。<br>今すぐ受け取りボタンを押して特典をGET！<br><br>（閉じるボタンは…どこにあるでしょう？）</p>
+    <button class="lb2-btn">特典を受け取る 🎁</button>
+  </div>
+  <button class="lb2-close" onclick="closeLightbox2()">✕ 閉じる</button>
+</div>
+
+<!-- ⑨ ライトボックス広告 -->
+<div id="lightbox-overlay" onclick="if(event.target===this)closeLightbox()">
+  <div id="lightbox-box">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <div class="ad-type-label" style="color:#f0c040;margin-bottom:12px;">⑨ ライトボックス広告 / LIGHTBOX AD</div>
+    <div class="lb-visual">🌟</div>
+    <h2>プレミアム会員募集中</h2>
+    <p>背景を暗くして注目を集めるライトボックス形式の広告です。<br>外側クリックでも閉じられます。</p>
+    <button class="lb-btn">今すぐ申し込む</button>
+    <span class="lb-skip" onclick="closeLightbox()">閉じる（スキップ）</span>
+  </div>
+</div>
+
+<script>
+  // スティッキー広告：スクロールで表示
+  window.addEventListener('scroll', () => {
+    const sticky = document.getElementById('sticky-ad');
+    if (window.scrollY > 200) sticky.classList.add('visible');
+    else sticky.classList.remove('visible');
+  });
+
+  // インタースティシャル
+  function showInterstitial() {
+    document.getElementById('interstitial-overlay').classList.add('active');
+    let count = 5;
+    const counter = document.getElementById('inter-counter');
+    const skipBtn = document.getElementById('inter-skip-btn');
+    skipBtn.disabled = true;
+    counter.textContent = `${count}秒後にスキップ可能...`;
+    const timer = setInterval(() => {
+      count--;
+      if (count > 0) {
+        counter.textContent = `${count}秒後にスキップ可能...`;
+      } else {
+        clearInterval(timer);
+        counter.textContent = 'スキップできます';
+        skipBtn.disabled = false;
+      }
+    }, 1000);
+  }
+  function closeInterstitial() {
+    document.getElementById('interstitial-overlay').classList.remove('active');
+  }
+
+  // モーダル
+  function showModal() {
+    document.getElementById('modal-overlay').classList.add('active');
+  }
+
+  // ライトボックス
+  function showLightbox() {
+    document.getElementById('lightbox-overlay').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox-overlay').classList.remove('active');
+  }
+
+  // ライトボックス2
+  function showLightbox2() {
+    document.getElementById('lightbox2-overlay').classList.add('active');
+  }
+  function closeLightbox2() {
+    document.getElementById('lightbox2-overlay').classList.remove('active');
+  }
+
+  // ============ ⑫ 戻るボタン広告 ============
+  // 偽の履歴エントリを積んで popstate を捕捉する
+  let backTrapArmed = false;
+
+  function armBackTrap() {
+    if (backTrapArmed) return;
+    backTrapArmed = true;
+    history.pushState({ backTrap: true }, '');
+  }
+
+  function showBackTrap() {
+    armBackTrap();
+    // 手動トリガーの場合は直接表示してからもう1つ履歴を積む
+    _openBackTrap();
+    history.pushState({ backTrap: true }, '');
+  }
+
+  function _openBackTrap() {
+    document.getElementById('back-trap-overlay').classList.add('active');
+  }
+
+  function closeBackTrap() {
+    document.getElementById('back-trap-overlay').classList.remove('active');
+  }
+
+  // ページ読み込み時に履歴を仕込む
+  window.addEventListener('load', () => {
+    armBackTrap();
+  });
+
+  // 戻るボタンを押したときに popstate が発火する
+  window.addEventListener('popstate', (e) => {
+    if (document.getElementById('back-trap-overlay').classList.contains('active')) {
+      // 既に表示中なら閉じる（本当に戻る）
+      closeBackTrap();
+      return;
+    }
+    // 広告を表示し、また履歴を積んで「戻れない」状態を再現
+    _openBackTrap();
+    history.pushState({ backTrap: true }, '');
+  });
+
+  // ============ ⑬ 動画サイドモーダル タイマー ============
+  (function() {
+    let seconds = 18;
+    const timerEl = document.getElementById('vad-timer');
+    const interval = setInterval(() => {
+      seconds--;
+      if (seconds <= 0) {
+        seconds = 18; // ループ
+      }
+      timerEl.textContent = `0:${String(seconds).padStart(2,'0')}`;
+    }, 1000);
+  })();
+
+  function toggleVideoAd() {
+    const el = document.getElementById('video-side-ad');
+    el.classList.toggle('collapsed');
+    const btn = el.querySelector('.vad-toggle');
+    btn.textContent = el.classList.contains('collapsed') ? '◀' : '▶';
+  }
+
+  // ============ フローティング広告：閉じても5秒後に復活 ============
+  function closeFloatingAd() {
+    const el = document.getElementById('floating-ad');
+    el.style.display = 'none';
+    setTimeout(() => {
+      el.style.display = 'block';
+      // 再表示時に一瞬光らせて存在を主張
+      el.animate(
+        [{ transform: 'scale(1.15)' }, { transform: 'scale(1)' }],
+        { duration: 400, easing: 'ease-out' }
+      );
+    }, 5000);
+  }
+
+  // ============ ⑭ カウントダウン全画面広告 ============
+  let cdInterval = null;
+  function showCountdown() {
+    document.getElementById('countdown-overlay').classList.add('active');
+    let total = 600; // 10分
+    const clock = document.getElementById('countdown-clock');
+    clearInterval(cdInterval);
+    cdInterval = setInterval(() => {
+      total--;
+      if (total < 0) total = 600; // 0になったらまたリセット（永遠に終わらない）
+      const m = String(Math.floor(total / 60)).padStart(2, '0');
+      const s = String(total % 60).padStart(2, '0');
+      clock.textContent = `${m}:${s}`;
+    }, 1000);
+  }
+  function closeCountdown() {
+    document.getElementById('countdown-overlay').classList.remove('active');
+    clearInterval(cdInterval);
+  }
+
+  // ============ ⑮ 偽システム通知広告 ============
+  function showFakeNotif() {
+    document.getElementById('fake-notif').classList.add('show');
+  }
+  function hideFakeNotif() {
+    document.getElementById('fake-notif').classList.remove('show');
+    // しつこく15秒後にまた出す
+    setTimeout(showFakeNotif, 15000);
+  }
+
+  // ============ ⑰ Cookie同意バナー ============
+  function hideCookie() {
+    document.getElementById('cookie-banner').classList.remove('show');
+  }
+  function showCookie() {
+    document.getElementById('cookie-banner').classList.add('show');
+  }
+
+  // ============ スクロール位置トリガー ============
+  // ユーザーが特定の位置まで読み進めた「意図しないタイミング」で
+  // オーバーレイ広告を不意打ち表示する
+  const scrollTriggers = [
+    { id: 'scroll-trigger-1', fired: false, action: showCookie },
+    { id: 'scroll-trigger-2', fired: false, action: showModal },
+    { id: 'scroll-trigger-3', fired: false, action: showLightbox2 },
+    { id: 'scroll-trigger-4', fired: false, action: showFakeNotif },
+  ];
+
+  const triggerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const t = scrollTriggers.find(s => s.id === entry.target.id);
+        if (t && !t.fired) {
+          t.fired = true;
+          t.action();
+        }
+      }
+    });
+  }, { threshold: 0 });
+
+  scrollTriggers.forEach(t => {
+    const el = document.getElementById(t.id);
+    if (el) triggerObserver.observe(el);
+  });
+
+  // ============ ⑱ アイドル / タブ復帰トリガー 全画面動画広告 ============
+  let idleTimer = null;
+  let idleVideoCountdown = null;
+  const IDLE_MS = 10000; // 10秒間操作がなければ発火
+
+  function resetIdleTimer() {
+    clearTimeout(idleTimer);
+    // 既に表示中なら再セットしない
+    if (document.getElementById('idle-video-overlay').classList.contains('active')) return;
+    idleTimer = setTimeout(() => triggerIdleVideo('10秒間 操作がありませんでした'), IDLE_MS);
+  }
+
+  function triggerIdleVideo(reason) {
+    const overlay = document.getElementById('idle-video-overlay');
+    if (overlay.classList.contains('active')) return;
+    clearTimeout(idleTimer);
+
+    document.getElementById('idle-trigger-reason').textContent = '⑱ ' + reason;
+    overlay.classList.add('active');
+
+    // 15秒のカウントダウン。5秒経つまでスキップ不可
+    let sec = 15;
+    const timerEl = document.getElementById('idle-video-timer');
+    const skipBtn = document.getElementById('idle-video-skip');
+    skipBtn.disabled = true;
+    skipBtn.textContent = 'スキップ (5)';
+    timerEl.textContent = `0:${String(sec).padStart(2,'0')}`;
+
+    let skipCount = 5;
+    clearInterval(idleVideoCountdown);
+    idleVideoCountdown = setInterval(() => {
+      sec--;
+      timerEl.textContent = `0:${String(Math.max(sec,0)).padStart(2,'0')}`;
+      if (skipCount > 0) {
+        skipCount--;
+        if (skipCount > 0) {
+          skipBtn.textContent = `スキップ (${skipCount})`;
+        } else {
+          skipBtn.disabled = false;
+          skipBtn.textContent = 'スキップ ✕';
+        }
+      }
+      if (sec <= 0) {
+        // 動画が「終わった」あとも自動では閉じず、スキップを促す
+        sec = 0;
+        clearInterval(idleVideoCountdown);
+      }
+    }, 1000);
+  }
+
+  function closeIdleVideo() {
+    document.getElementById('idle-video-overlay').classList.remove('active');
+    clearInterval(idleVideoCountdown);
+    resetIdleTimer(); // 閉じたらまた無操作タイマー開始
+  }
+
+  // 無操作を検知するイベント
+  ['scroll', 'mousemove', 'mousedown', 'keydown', 'touchstart', 'touchmove', 'click']
+    .forEach(evt => window.addEventListener(evt, resetIdleTimer, { passive: true }));
+
+  // タブを切り替えて戻ってきたら発火
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      triggerIdleVideo('タブから戻ってきました');
+    } else {
+      clearTimeout(idleTimer); // 離れている間はカウントしない
+    }
+  });
+
+  // 初回の無操作タイマーを開始
+  resetIdleTimer();
+
+</script>
+</body>
+</html>
